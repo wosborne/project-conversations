@@ -63,6 +63,8 @@ RSpec.configure do |config|
 
   config.include Warden::Test::Helpers
   Warden.test_mode!
+
+  config.include ActiveSupport::Testing::TimeHelpers
 end
 
 Shoulda::Matchers.configure do |config|

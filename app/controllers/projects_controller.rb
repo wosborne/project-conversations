@@ -15,6 +15,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = current_user.projects.includes(conversation: [:comments]).find(params[:id])
+    @comment = Comment.new
   end
 
   private
