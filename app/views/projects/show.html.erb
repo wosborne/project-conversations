@@ -1,4 +1,14 @@
 <h1><%= @project.name %></h1>
+<b><%= @project.status %></b>
+
+<br>
+
+<%= form_for @project do |f| %>
+  <%= f.label :status, "Set project status" %><br> 
+  <%= f.text_field :status, value: "" %>
+
+  <%= f.submit "Save status" %>
+<% end %>
 
 <h3>Conversation</h3>
 
