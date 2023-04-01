@@ -1,4 +1,9 @@
 <h1>Your Projects</h1>
+
 <% current_user.projects.each do |project| %>
   <h3><%= project.name %><h3>
 <% end %>
+
+<hr>
+
+<%= link_to "Create new project", new_project_path %>
