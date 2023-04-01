@@ -1,7 +1,7 @@
 <h1>Your Projects</h1>
 
 <% current_user.projects.each do |project| %>
-  <h3><%= project.name %><h3>
+  <%= link_to project.name, project_path(project) %><br>
 <% end %>
 
 <hr>

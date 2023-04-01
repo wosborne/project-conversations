@@ -1,0 +1,8 @@
+<h1><%= @project.name %></h1>
+
+<h3>Conversation</h3>
+
+<% @project.conversation.comments.each do |comment| %>
+  <%= comment.user.email %>
+  <%= comment.content %>
+<% end %>

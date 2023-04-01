@@ -13,6 +13,10 @@ class ProjectsController < ApplicationController
     redirect_to projects_path
   end
 
+  def show
+    @project = current_user.projects.includes(conversation: [:comments]).find(params[:id])
+  end
+
   private
 
   def project_params
