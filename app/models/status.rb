@@ -1,4 +1,4 @@
-class Comment < ApplicationRecord
+class Status < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true
 

@@ -1,5 +1,8 @@
-<h1><%= @project.name %></h1>
-<b><%= @project.status %></b>
+<h1 id="project-name"><%= @project.name %></h1>
+
+<div id="status">
+  <b><%= @project.status&.content %></b>
+</div>
 
 <br>
 
@@ -10,20 +13,22 @@
   <%= f.submit "Save status" %>
 <% end %>
 
-<h3>Conversation</h3>
+<div id="conversation">
+  <h3>Conversation</h3>
 
-<%= form_for @comment, url: project_comments_path(@project) do |f| %>
-  <%= f.label :content, "Add comment" %><br> 
-  <%= f.text_field :content %>
+  <%= form_for @comment, url: project_comments_path(@project) do |f| %>
+    <%= f.label :content, "Add comment" %><br> 
+    <%= f.text_field :content %>
 
-  <%= f.submit "Save" %>
-<% end %>
+    <%= f.submit "Save" %>
+  <% end %>
 
-<br>
-
-<% @project.conversation.comments.each do |comment| %>
-  <strong><%= comment.content %></strong><br>
-  <%= comment.user.email %><br>
-  <%= comment.created_at.strftime('%d %b %Y %H:%M:%S %Z')%><br>
   <br>
-<% end %>
+
+  <% @project.conversation_nodes.each do |node| %>
+    <%= format_node_content(node) %><br>
+    <i><%= node.user.email %></i><br>
+    <i><%= node.conversationable.created_at.strftime('%d %b %Y %H:%M:%S %Z')%></i><br>
+    <br>
+  <% end %>
+</div>

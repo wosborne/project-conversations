@@ -13,13 +13,20 @@ describe "View a project" do
     vaders_comment = FactoryBot.create(:comment,
       content: "The force is strong within this project",
       user: vader,
-      conversation: project.conversation
     )
+    FactoryBot.create(:conversation_node, project: project, conversationable: vaders_comment)
+
     tarkins_comment = FactoryBot.create(:comment,
       content: "Yes Lord Vader",
       user: tarkin,
-      conversation: project.conversation
     )
+    FactoryBot.create(:conversation_node, project: project, conversationable: tarkins_comment)
+
+    tarkins_status = FactoryBot.create(:status,
+      content: "Approved",
+      user: tarkin,
+    )
+    FactoryBot.create(:conversation_node, project: project, conversationable: tarkins_status)
     
     login_as(vader, scope: :user)
 
@@ -27,11 +34,13 @@ describe "View a project" do
 
     click_on "Death Star"
 
-    expect(page).to have_content "Death Star"
-    expect(page).to have_content "Conversation"
-    expect(page).to have_content "vader@deathstar.glx"
-    expect(page).to have_content "The force is strong within this project"
-    expect(page).to have_content "tarkin@deathstar.glx"
-    expect(page).to have_content "Yes Lord Vader"
+    expect(page).to have_css("#project-name", text: "Death Star")
+    expect(page).to have_css("#status", text: "Approved")
+    expect(page).to have_css("#conversation", text:  "Conversation")
+    expect(page).to have_css("#conversation", text:  "vader@deathstar.glx")
+    expect(page).to have_css("#conversation", text:  "The force is strong within this project")
+    expect(page).to have_css("#conversation", text: "tarkin@deathstar.glx")
+    expect(page).to have_css("#conversation", text:  "Yes Lord Vader")
+    expect(page).to have_css("#conversation", text:  "Changed project status to: Approved")
   end
 end

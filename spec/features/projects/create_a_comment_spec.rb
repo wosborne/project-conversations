@@ -13,7 +13,10 @@ describe "Create a comment" do
     vaders_comment = FactoryBot.create(:comment,
       content: "The force is strong within this project",
       user: vader,
-      conversation: project.conversation
+    )
+    FactoryBot.create(:comment_node,
+      conversationable: vaders_comment,
+      project: project
     )
     
     login_as(tarkin, scope: :user)

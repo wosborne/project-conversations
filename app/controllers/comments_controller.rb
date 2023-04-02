@@ -1,12 +1,9 @@
 class CommentsController < ProjectsController
 
   def create
-    Comment.create(
-      comment_params.merge(
-        user_id: current_user.id,
-        conversation_id: project.conversation.id
-      )
-    )
+    comment = Comment.create(comment_params.merge(user: current_user))
+    
+    project.add_conversation_node(comment)
 
     redirect_to project_path(project), notice: "Comment added"
   end
@@ -18,6 +15,6 @@ class CommentsController < ProjectsController
   end
 
   def project
-    @project ||= Project.includes(:conversation).find(params[:project_id])
+    @project ||= Project.find(params[:project_id])
   end
 end
